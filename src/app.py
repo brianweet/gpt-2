@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    query = request.args.get('query')
-    top_k = request.args.get('top_k', 40, int)
-    return query + ' : ' + conditional(query=query, top_k=int(top_k))
+    input = request.args.get('input')
+    top_k = request.args.get('top_k', 100, int)
+    return input + ' : ' + conditional(raw_text_input=input, top_k=int(top_k))
 
 @app.route('/ping')
 def hello_test():

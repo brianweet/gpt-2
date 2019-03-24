@@ -9,7 +9,7 @@ import tensorflow as tf
 import model, sample, encoder
 
 def conditional(
-    query='',
+    raw_text_input='',
     model_name='117M',
     seed=None,
     nsamples=1,
@@ -20,6 +20,7 @@ def conditional(
 ):
     """
     Interactively run the model
+    :raw_text_input='' : String, input text used to generate conditional sample
     :model_name=117M : String, which model to use
     :seed=None : Integer seed for random number generators, fix seed to reproduce
      results
@@ -66,7 +67,7 @@ def conditional(
         saver.restore(sess, ckpt)
 
         while True:
-            context_tokens = enc.encode(query)
+            context_tokens = enc.encode(raw_text_input)
             generated = 0
             for _ in range(nsamples // batch_size):
                 out = sess.run(output, feed_dict={
