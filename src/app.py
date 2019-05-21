@@ -7,7 +7,8 @@ app = Flask(__name__)
 def hello_world():
     input = request.args.get('input')
     top_k = request.args.get('top_k', 100, int)
-    return conditional(raw_text_input=input, top_k=int(top_k))
+    model_name = request.args.get('model_name', '117M', str)
+    return conditional(raw_text_input=input, top_k=int(top_k), model_name=model_name)
 
 @app.route('/ping')
 def hello_test():
