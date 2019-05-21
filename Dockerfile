@@ -1,11 +1,8 @@
-FROM tensorflow/tensorflow:1.12.0-py3
+FROM brianweet/gpt-2-cpu
 
-ENV LANG=C.UTF-8
-RUN mkdir /gpt-2
 WORKDIR /gpt-2
-ADD . /gpt-2
-RUN pip3 install -r requirements.txt
-RUN python3 download_model.py 117M
+ADD src/app.py /gpt-2/src
+ADD src/generate_conditional.py /gpt-2/src
 
 ENTRYPOINT ["python3"]
 CMD ["src/app.py"]
