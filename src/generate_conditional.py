@@ -10,19 +10,20 @@ import model, sample, encoder
 
 def conditional(
     raw_text_input='',
-    model_name='117M',
+    model_name='124M',
     seed=None,
     nsamples=1,
     batch_size=1,
     length=None,
     temperature=1,
     top_k=0,
-    models_dir='models',    
+    top_p=1,
+    models_dir='models',
 ):
     """
     Interactively run the model
     :raw_text_input='' : String, input text used to generate conditional sample
-    :model_name=117M : String, which model to use
+    :model_name=124M : String, which model to use
     :seed=None : Integer seed for random number generators, fix seed to reproduce
      results
     :nsamples=1 : Number of samples to return total
@@ -38,7 +39,7 @@ def conditional(
      while 40 means 40 words are considered at each step. 0 (default) is a
      special setting meaning no restrictions. 40 generally is a good value.
      :models_dir : path to parent folder containing model subfolders
-     (i.e. contains the <model_name> folder)     
+     (i.e. contains the <model_name> folder)
     """
     models_dir = os.path.expanduser(os.path.expandvars(models_dir))
     if batch_size is None:
@@ -63,7 +64,7 @@ def conditional(
             hparams=hparams, length=length,
             context=context,
             batch_size=batch_size,
-            temperature=temperature, top_k=top_k
+            temperature=temperature, top_k=top_k, top_p=top_p
         )
 
         saver = tf.train.Saver()
